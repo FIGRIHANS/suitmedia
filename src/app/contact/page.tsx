@@ -47,7 +47,7 @@ export default function ContactPage() {
   const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState<WorkItem | null>(null);
   const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(PAGE_SIZE_OPTIONS[1]);
+  const [pageSize, setPageSize] = useState(PAGE_SIZE_OPTIONS[0]);
   const [sort, setSort] = useState(SORT_OPTIONS[0].value);
   const [totalItems, setTotalItems] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
@@ -128,7 +128,10 @@ export default function ContactPage() {
                 <select
                   className="border rounded-full px-4 py-2 text-sm font-semibold text-black"
                   value={pageSize}
-                  onChange={(e) => setPageSize(Number(e.target.value))}
+                  onChange={(e) => {
+                    const val = Number(e.target.value);
+                    setPageSize(val > 16 ? 16 : val);
+                  }}
                 >
                   {PAGE_SIZE_OPTIONS.map((opt) => (
                     <option key={opt} value={opt}>{opt}</option>
